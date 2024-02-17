@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ui-icons/menu.svg</file>
+        <file>ui-icons/back.svg</file>
+        <file>ui-icons/back.png</file>
+    </qresource>
+</RCC>
