@@ -2,12 +2,18 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import RestApiHelper
+
 ApplicationWindow {
     id: window
-    width: 1024
-    height: 640
+    width: 640
+    height: 480
     visible: true
     title: qsTr("BhssWS Yönetici")
+
+    RestApiHelper {
+        id: restApiHelper
+    }
 
     header: ToolBar {
 
@@ -60,13 +66,13 @@ ApplicationWindow {
         ListModel {
             id: menuModel
             ListElement {
-                name : "Yeni Kart"
+                name : "Stok Kartı"
             }
             ListElement {
-                name : "Yeni Kategori"
+                name : "Kategoriler"
             }
             ListElement {
-                name : "Yeni Alt Kategori"
+                name : "Alt Kategoriler"
             }
         }
 
@@ -89,13 +95,16 @@ ApplicationWindow {
                 onClicked: {
                     switch(buttonIndex){
                     case 0:
-
+                        stackView.push(stokKartiPage)
+                        pageTitle.text = "Stok Kartı"
                         break;
                     case 1:
-
+                        stackView.push(categoriesPage)
+                        pageTitle.text = "Kategoriler"
                         break;
                     case 2:
-
+                        stackView.push(subCategoriesPage)
+                        pageTitle.text = "Alt Kategoriler"
                         break;
                     }
                     drawer.state = false
@@ -112,12 +121,33 @@ ApplicationWindow {
     StackView {
         id: stackView
         anchors.fill: parent
-        initialItem: newProduct
+        initialItem: stokKartiPage
+    }
+
+    Shortcut {
+        sequences: ["Esc", "Back"]
+        enabled: stackView.depth > 1
+        onActivated: geriAction.trigger()
+    }
+
+    Action {
+        id: geriAction
+        onTriggered: stackView.pop()
     }
 
     Component {
-        id: newProduct
-        NewProduct{}
+        id: categoriesPage
+        Categories{}
+    }
+
+    Component {
+        id: stokKartiPage
+        StokKarti{}
+    }
+
+    Component {
+        id: subCategoriesPage
+        SubCategories{}
     }
 
     footer: ToolBar {

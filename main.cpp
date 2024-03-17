@@ -1,15 +1,17 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QFontDatabase>
+#include <QSslSocket> // https bağlantılarını açabilmek için. mesela https://img.basat.dev/ adresindeki ürün resimleri için.
+#include <QDebug>
+#include <restapihelper.h>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    QFontDatabase fd;
-
-
     QQmlApplicationEngine engine;
+
+    qmlRegisterType<RestApiHelper>("RestApiHelper", 1, 0, "RestApiHelper");
+
     const QUrl url(u"qrc:/bhssWSManager/Main.qml"_qs);
     QObject::connect(
         &engine,

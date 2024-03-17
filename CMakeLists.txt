@@ -4,7 +4,7 @@ project(bhssWSManager VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Core Quick Network)
 
 qt_standard_project_setup()
 
@@ -17,16 +17,37 @@ qt_add_qml_module(appbhssWSManager
     VERSION 1.0
     QML_FILES
         Main.qml
-        NewProduct.qml
+        StokKarti.qml
+        Categories.qml
+        SubCategories.qml
     RESOURCES
         "ui-icons/menu.svg"
         "ui-icons/back.svg"
         "ui-icons/settings.svg"
+        "ui-icons/backspace.svg"
+        "ui-icons/product.svg"
+        "android/AndroidManifest.xml"
+        SOURCES restapihelper.h restapihelper.cpp
+                product.h product.cpp
+                SOURCES subcategory.h subcategory.cpp
+                SOURCES category.h category.cpp
+                SOURCES unit.h unit.cpp
+                SOURCES producer.h producer.cpp
 )
 
 qt_add_resources(appbhssWSManager "assets"
     PREFIX "/ui-icons/"
 )
+
+qt_add_resources(appbhssWSManager "assets"
+    PREFIX "/android/"
+)
+
+include(/home/mamoo/Android/Sdk/android_openssl/android_openssl.cmake)
+
+if (ANDROID)
+    add_android_openssl_libraries(appbhssWSManager)
+endif()
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -40,7 +61,7 @@ set_target_properties(appbhssWSManager PROPERTIES
 )
 
 target_link_libraries(appbhssWSManager
-    PRIVATE Qt6::Quick
+    PRIVATE Qt6::Quick Qt6::Core Qt6::Network
 )
 
 include(GNUInstallDirs)
