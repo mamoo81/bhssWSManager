@@ -382,4 +382,116 @@ Page {
             }
         }
     }
+
+    states: [
+        State {
+            name: "new"
+            PropertyChanges {
+                target: newToolButton
+                enabled: false
+            }
+            PropertyChanges {
+                target: editToolButton
+                enabled: false
+            }
+            PropertyChanges {
+                target: saveToolButton
+                enabled: true
+            }
+            PropertyChanges {
+                target: cancelToolButton
+                enabled: true
+            }
+        },
+        State {
+            name: "edit"
+            PropertyChanges {
+                target: newToolButton
+                enabled: true
+            }
+            PropertyChanges {
+                target: editToolButton
+                enabled: false
+            }
+            PropertyChanges {
+                target: saveToolButton
+                enabled: true
+            }
+            PropertyChanges {
+                target: cancelToolButton
+                enabled: true
+            }
+        },
+        State {
+            name: "search"
+            PropertyChanges {
+                target: newToolButton
+                enabled: true
+            }
+            PropertyChanges {
+                target: editToolButton
+                enabled: barcodeTextField.text !== "" ? true : false
+            }
+            PropertyChanges {
+                target: saveToolButton
+                enabled: false
+            }
+            PropertyChanges {
+                target: cancelToolButton
+                enabled: false
+            }
+        }
+    ]
+
+    footer: ToolBar {
+        RowLayout {
+            anchors.fill: parent
+
+            ToolButton {
+                id: newToolButton
+                text: "Yeni"
+                Layout.fillWidth: true
+                icon {
+                    source: Qt.url("ui-icons/new.svg")
+                    width: 32
+                    height: 32
+                }
+            }
+            ToolButton {
+                id: editToolButton
+                text: "Düzenle"
+                Layout.fillWidth: true
+
+                icon {
+                    source: Qt.url("ui-icons/edit.svg")
+                    width: 32
+                    height: 32
+                }
+            }
+            ToolButton {
+                id: saveToolButton
+                text: "Kaydet"
+                Layout.fillWidth: true
+
+                icon {
+                    source: Qt.url("ui-icons/save.svg")
+                    width: 32
+                    height: 32
+                }
+            }
+            ToolButton {
+                id: cancelToolButton
+                text: "İptal"
+                Layout.fillWidth: true
+
+                icon {
+                    source: Qt.url("ui-icons/cancel.svg")
+                    width: 32
+                    height: 32
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: rootStokKarti.state = "search"
 }

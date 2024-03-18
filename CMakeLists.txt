@@ -26,6 +26,10 @@ qt_add_qml_module(appbhssWSManager
         "ui-icons/settings.svg"
         "ui-icons/backspace.svg"
         "ui-icons/product.svg"
+        "ui-icons/new.svg"
+        "ui-icons/edit.svg"
+        "ui-icons/save.svg"
+        "ui-icons/cancel.svg"
         "android/AndroidManifest.xml"
         SOURCES restapihelper.h restapihelper.cpp
                 product.h product.cpp

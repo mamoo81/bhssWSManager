@@ -149,8 +149,4 @@ ApplicationWindow {
         id: subCategoriesPage
         SubCategories{}
     }
-
-    footer: ToolBar {
-
-    }
 }
